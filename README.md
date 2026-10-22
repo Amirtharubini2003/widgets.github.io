@@ -1,60 +1,55 @@
 # widgets.github.io
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Custom Related List</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 0; padding: 10px; background: #f9f9f9; }
-        .card-container { display: flex; flex-direction: column; gap: 8px; }
-        .item-card { background: #fff; padding: 12px; border-radius: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center; border-left: 4px solid #0066cc; }
-        .item-title { font-weight: bold; color: #333; }
-        .item-sub { font-size: 12px; color: #666; }
-        .no-data { text-align: center; color: #888; padding: 20px; }
-    </style>
-</head>
-<body>
-    <div id="list-container" class="card-container">
-        <div class="no-data">Loading related items...</div>
-    </div>
 
-    <script src="https://live.zwidgets.com/js-sdk/1.1/ZohoEmbededAppSDK.min.js"></script>
-    <script>
-        ZOHO.embeddedApp.on("PageLoad", function(data) {
-            var dealId = data.EntityId;
-            
-            // Fetch related contacts (Change 'Contacts' to 'Products' if needed)
-            ZOHO.CRM.RelatedList.get({Entity:"Deals",RecordID:dealId,RelatedList:"Contacts"})
-            .then(function(response){
-                var container = document.getElementById("list-container");
-                container.innerHTML = "";
-                
-                let records = response.data;
-                if(!records || records.length === 0) {
-                    container.innerHTML = '<div class="no-data">No related records found.</div>';
-                    return;
-                }
 
-                records.forEach(function(item) {
-                    let card = document.createElement("div");
-                    card.className = "item-card";
-                    card.innerHTML = `
-                        <div>
-                            <div class="item-title">${item.Full_Name || item.Name || "N/A"}</div>
-                            <div class="item-sub">${item.Email || item.Product_Code || ""}</div>
-                        </div>
-                    `;
-                    container.appendChild(card);
-                });
-            })
-            .catch(function(err) {
-                console.error(err);
-                document.getElementById("list-container").innerHTML = '<div class="no-data">Error loading related data.</div>';
-            });
-        });
+<div align="center">
 
-        ZOHO.embeddedApp.init();
-    </script>
-</body>
-</html>
+  <h1> Zoho CRM - Update Lead Widget</h1>
+  <p><i>A custom HTML popup widget hosted via GitHub Pages for Zoho CRM integration.</i></p>
 
+  <p>
+    <a href="https://amirtharubini2003.github.io/Zoho-widgets-root/popup.html">
+      <img src="https://img.shields.io/badge/Live_Widget-View_Popup-brightgreen?style=for-the-badge&logo=githubpages" alt="Live Widget Link">
+    </a>
+    <img src="https://img.shields.io/badge/Zoho_CRM-Compatible-blue?style=for-the-badge&logo=zoho" alt="Zoho CRM">
+  </p>
+
+</div>
+
+---
+
+<h2> Overview</h2>
+
+<p>
+  This repository contains the custom HTML, CSS, and JavaScript files required to display an <b>Update Lead</b> popup form inside Zoho CRM. It uses GitHub Pages as an external hosting source to load seamlessly inside Zoho CRM iframe widgets.
+</p>
+
+---
+
+<h2> Live URLs</h2>
+
+<table>
+  <tr>
+    <th>Page</th>
+    <th>Live URL</th>
+  </tr>
+  <tr>
+    <td><b>Popup Widget</b></td>
+    <td><code>https://amirtharubini2003.github.io/Zoho-widgets-root/popup.html</code></td>
+  </tr>
+  <tr>
+    <td><b>Index Page</b></td>
+    <td><code>https://amirtharubini2003.github.io/Zoho-widgets-root/index.html</code></td>
+  </tr>
+</table>
+
+---
+
+<h2>🛠️ Setup Instructions for Zoho CRM</h2>
+
+<ol>
+  <li>Go to <b>Zoho CRM Settings → Developer Space → Widgets</b>.</li>
+  <li>Click <b>Create New Widget</b>.</li>
+  <li>Set <b>Hosting Type</b> to <code>External</code>.</li>
+  <li>Paste the <b>Popup Widget URL</b> into the <i>Base URL / Index Page</i> box.</li>
+  <li>Map the widget to your <b>Update Lead</b> custom button under <i>Modules → Leads → Buttons</i>.</li>
+</ol>
